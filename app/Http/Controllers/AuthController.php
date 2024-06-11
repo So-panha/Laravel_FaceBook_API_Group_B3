@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Password;
+
 
 class AuthController extends Controller
 {
@@ -53,11 +56,6 @@ class AuthController extends Controller
     }
 
 
-       /** 
-    * register user
-    * @param Request $request
-    * @return user
-    */
     public function register(Request $request)
     {
         try{
@@ -73,7 +71,7 @@ class AuthController extends Controller
                     'status' => false,
                     'validator' => 'validator error',
                     'error' => $validator->errors()
-                ], 401);            
+                ], 401);
             }
 
             $user = User::create([
@@ -83,7 +81,7 @@ class AuthController extends Controller
                 'password' =>  Hash::make($request->password),
                 'remember_token' => Str::random(20),
             ]);
-            
+
             return response()->json([
                 'status' => true,
                 'message' => 'User created successfully',
@@ -95,6 +93,18 @@ class AuthController extends Controller
                 'error' => $th->getMessage()
             ], 500);
         }
-        
+
     }
+
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logged out successfully',
+        ]);
+    }
+
 }
+
