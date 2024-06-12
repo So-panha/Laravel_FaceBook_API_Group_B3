@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->string('emoji_id');
-            $table->integer('show_post_id');
             $table->integer('user_id');
+            $table->integer('show_post_id');
+            $table->integer('emoji_id');
             $table->timestamps();
         });
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\EmojiController;
+use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,9 @@ Route::get('/me', [AuthController::class, 'index'])->middleware('auth:sanctum');
 Route::get('/emoji/list',[EmojiController::class,'index'])->name('emoji.list');
 Route::post('/emoji/create',[EmojiController::class, 'store'])  ;
 Route::delete('/emoji/delete/{id}',[EmojiController::class, 'destroy']);
+
+//likes
+
+Route::get('/like/list',[LikeController::class,'index']);
+Route::post('/like/create',[LikeController::class,'store']);
+Route::delete('/like/delete/{id}',[LikeController::class,'destroy']);
