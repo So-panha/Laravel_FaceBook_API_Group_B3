@@ -12,6 +12,7 @@ class LikeController extends Controller
     public function index()
     {
         //
+        
     }
 
     /**

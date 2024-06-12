@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
@@ -13,6 +14,9 @@ class LikeController extends Controller
     public function index()
     {
         //
+        $likes= Like::all();
+        return response(['success' => true, 'data' =>$likes], 200);
+
     }
 
     /**
@@ -21,6 +25,8 @@ class LikeController extends Controller
     public function store(Request $request)
     {
         //
+        Like::store($request);
+        return ["success" => true, "Message" =>"Like created successfully"];
     }
 
     /**
@@ -45,5 +51,8 @@ class LikeController extends Controller
     public function destroy(string $id)
     {
         //
+        Like::find($id)->delete();
+        return ["success" => true, "Message" =>"Unlike successfully"];
+        
     }
 }
