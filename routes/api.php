@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\FriendController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\Show_postController;
 use App\Http\Controllers\AuthController;
@@ -37,3 +38,9 @@ Route::post('/show_post/create',[Show_postController::class,'store'])->name('sho
 Route::get('/show_post/show/{id}',[Show_postController::class,'show'])->name('show_post.show');
 Route::put('/show_post/update/{id}',[Show_postController::class,'update'])->name('show_post.update');
 Route::delete('/show_post/delete/{id}',[Show_postController::class,'destroy'])->name('show_post.destroy');
+
+Route::get('/friend/list',[FriendController::class,'index'])->name('friend.list');
+Route::post('/friend/create',[FriendController::class,'store'])->name('friend.create');
+Route::get('/friend/show/{id}',[FriendController::class,'show'])->name('friend.show');
+Route::put('/friend/update/{id}',[FriendController::class,'update'])->name('friend.update');
+Route::delete('/friend/delete/{id}',[FriendController::class,'destroy'])->name('friend.destroy');
