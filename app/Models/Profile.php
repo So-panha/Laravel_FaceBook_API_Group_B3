@@ -15,7 +15,17 @@ class Profile extends Model
         'avatar',
         
     ];
-    
+    public static function store($request, $id = null){
+        $data = $request->only( 'birthday','place','bio','avatar' );
+        $data = self::updateOrCreate(['id' => $id], $data);
+        return $data;
+        
+    }
+    public static function show($request, $id = null){
+        $profile = self::find($id);
+        return $profile;
+    }
+
 
 
 }

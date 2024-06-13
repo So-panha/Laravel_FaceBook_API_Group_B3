@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('birthday');
+            $table->date('birthday');
             $table->string('place');
             $table->string('bio');
             $table->integer('avatar');
