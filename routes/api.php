@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\EmojiController;
-use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\Show_postController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,17 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
 Route::get('/me', [AuthController::class, 'index'])->middleware('auth:sanctum');
 
+Route::get('/post/list',[PostController::class,'index'])->name('post.list');
+Route::post('/post/create',[PostController::class,'store'])->name('post.create');
+Route::get('/post/show/{id}',[PostController::class,'show'])->name('post.show');
+Route::put('/post/update/{id}',[PostController::class,'update'])->name('post.update');
+Route::delete('/post/delete/{id}',[PostController::class,'destroy'])->name('post.destroy');
 
-//emoji
-Route::get('/emoji/list',[EmojiController::class,'index'])->name('emoji.list');
-Route::post('/emoji/create',[EmojiController::class, 'store'])  ;
-Route::delete('/emoji/delete/{id}',[EmojiController::class, 'destroy']);
+Route::get('/comment/list',[CommentController::class,'index'])->name('comment.list');
+Route::post('/comment/create',[CommentController::class,'store'])->name('comment.create');
+Route::get('/comment/show/{id}',[CommentController::class,'show'])->name('comment.show');
+Route::put('/comment/update/{id}',[CommentController::class,'update'])->name('comment.update');
+Route::delete('/comment/delete/{id}',[CommentController::class,'destroy'])->name('comment.destroy');
 
-//likes
-
-Route::get('/like/list',[LikeController::class,'index']);
-Route::post('/like/create',[LikeController::class,'store']);
-Route::delete('/like/delete/{id}',[LikeController::class,'destroy']);
+Route::get('/show_post/list',[Show_postController::class,'index'])->name('show_post.list');
+Route::post('/show_post/create',[Show_postController::class,'store'])->name('show_post.create');
+Route::get('/show_post/show/{id}',[Show_postController::class,'show'])->name('show_post.show');
+Route::put('/show_post/update/{id}',[Show_postController::class,'update'])->name('show_post.update');
+Route::delete('/show_post/delete/{id}',[Show_postController::class,'destroy'])->name('show_post.destroy');

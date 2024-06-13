@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             Schema::enableForeignKeyConstraints();
         } else {
             $this->call(DefaultUsersSeeder::class);
-        }                                           
+        }
         Model::reguard();
     }
 

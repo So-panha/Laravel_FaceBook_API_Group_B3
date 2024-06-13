@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emoji', function (Blueprint $table) {
+        Schema::create('show_posts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('emoji');
+            $table->integer("post_id");
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('emoji');
+        Schema::dropIfExists('show_posts');
     }
 };

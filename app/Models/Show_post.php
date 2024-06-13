@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Show_post extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'caption',
-        'user_id',
-        'photo_id',
-        'video_id',
+        'post_id'
     ];
 }
