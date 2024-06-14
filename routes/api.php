@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\FriendController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\Request_friendController;
 use App\Http\Controllers\Api\Show_postController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -44,3 +45,9 @@ Route::post('/friend/create',[FriendController::class,'store'])->name('friend.cr
 Route::get('/friend/show/{id}',[FriendController::class,'show'])->name('friend.show');
 Route::put('/friend/update/{id}',[FriendController::class,'update'])->name('friend.update');
 Route::delete('/friend/delete/{id}',[FriendController::class,'destroy'])->name('friend.destroy');
+
+Route::get('/request_friend/list',[Request_friendController::class,'index'])->name('request_friend.list');
+Route::post('/request_friend/create',[Request_friendController::class,'store'])->name('request_friend.create');
+Route::get('/request_friend/show/{id}',[Request_friendController::class,'show'])->name('request_friend.show');
+Route::put('/request_friend/update/{id}',[Request_friendController::class,'update'])->name('request_friend.update');
+Route::delete('/request_friend/delete/{id}',[Request_friendController::class,'destroy'])->name('request_friend.destroy');
