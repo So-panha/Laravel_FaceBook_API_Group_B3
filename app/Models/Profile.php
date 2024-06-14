@@ -15,6 +15,7 @@ class Profile extends Model
         'avatar_id',
         
     ];
+    
     public static function store($request, $id = null){
         $data = $request->only( 'birthday','place','bio','avatar_id' );
         $data = self::updateOrCreate(['id' => $id], $data);
