@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('birthday');
             $table->string('place');
             $table->string('bio');
-            $table->integer('avatar');
+            $table->integer('avatar_id');
             $table->timestamps();
         });
     }

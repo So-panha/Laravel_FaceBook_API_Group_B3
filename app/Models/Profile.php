@@ -12,11 +12,11 @@ class Profile extends Model
         'birthday',
         'place',
         'bio',
-        'avatar',
+        'avatar_id',
         
     ];
     public static function store($request, $id = null){
-        $data = $request->only( 'birthday','place','bio','avatar' );
+        $data = $request->only( 'birthday','place','bio','avatar_id' );
         $data = self::updateOrCreate(['id' => $id], $data);
         return $data;
         
