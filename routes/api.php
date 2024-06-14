@@ -1,19 +1,10 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\Api\EmojiController;
 use App\Http\Controllers\Api\LikeController;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 use App\Http\Controllers\Api\ProfileController;
->>>>>>> ad3a84e8488f5babbe86feeed4fd9da469d1db51
-=======
 use App\Http\Controllers\Api\PostController;
->>>>>>> 801cf589ef70b8c361f35362780b41b12cf0cc03
-=======
 use App\Http\Controllers\Api\ShareController;
->>>>>>> ecd4526dcebb54edb42c0cb4a41044abc337e403
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +23,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/me', [AuthController::class, 'index'])->middleware('auth:sanctum');
 
-<<<<<<< HEAD
 
 //emoji
 Route::get('/emoji/list',[EmojiController::class,'index'])->name('emoji.list');
@@ -44,24 +34,17 @@ Route::delete('/emoji/delete/{id}',[EmojiController::class, 'destroy']);
 Route::get('/like/list',[LikeController::class,'index']);
 Route::post('/like/create',[LikeController::class,'store']);
 Route::delete('/like/delete/{id}',[LikeController::class,'destroy']);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
 
 //profile
 Route::post('/profile/create',[ProfileController::class,'store']);
 Route::get('/profile/show/{id}',[ProfileController::class,'show']);
 Route::put('/profile/update/{id}',[ProfileController::class,'update']);
->>>>>>> ad3a84e8488f5babbe86feeed4fd9da469d1db51
-=======
 Route::get('/post/list',[PostController::class,'index'])->name('post.list');
 Route::post('/post/create',[PostController::class,'store'])->name('post.create');
 Route::get('/post/show/{id}',[PostController::class,'show'])->name('post.show');
 Route::put('/post/update/{id}',[PostController::class,'update'])->name('post.update');
 Route::delete('/post/delete/{id}',[PostController::class,'destroy'])->name('post.destroy');
->>>>>>> 801cf589ef70b8c361f35362780b41b12cf0cc03
-=======
 
 //share
 
@@ -69,4 +52,3 @@ Route::get('/share/list',[ShareController::class,'index']);
 Route::post('/share/create',[ShareController::class,'store']);
 Route::put('/share/update/{id}',[ShareController::class,'update']);
 Route::delete('/share/delete/{id}',[ShareController::class,'destroy']);
->>>>>>> ecd4526dcebb54edb42c0cb4a41044abc337e403
