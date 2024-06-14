@@ -3,6 +3,10 @@
 <<<<<<< HEAD
 use App\Http\Controllers\Api\EmojiController;
 use App\Http\Controllers\Api\LikeController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\Api\ProfileController;
+>>>>>>> ad3a84e8488f5babbe86feeed4fd9da469d1db51
 =======
 use App\Http\Controllers\Api\PostController;
 >>>>>>> 801cf589ef70b8c361f35362780b41b12cf0cc03
@@ -36,6 +40,15 @@ Route::delete('/emoji/delete/{id}',[EmojiController::class, 'destroy']);
 Route::get('/like/list',[LikeController::class,'index']);
 Route::post('/like/create',[LikeController::class,'store']);
 Route::delete('/like/delete/{id}',[LikeController::class,'destroy']);
+<<<<<<< HEAD
+=======
+
+
+//profile
+Route::post('/profile/create',[ProfileController::class,'store']);
+Route::get('/profile/show/{id}',[ProfileController::class,'show']);
+Route::put('/profile/update/{id}',[ProfileController::class,'update']);
+>>>>>>> ad3a84e8488f5babbe86feeed4fd9da469d1db51
 =======
 Route::get('/post/list',[PostController::class,'index'])->name('post.list');
 Route::post('/post/create',[PostController::class,'store'])->name('post.create');
