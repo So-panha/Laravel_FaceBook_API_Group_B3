@@ -17,9 +17,6 @@ use Illuminate\Support\Facades\Mail;
 use Nette\Utils\Random;
 
 
-
-
-
 class AuthController extends Controller
 {
     public function login(Request $request): JsonResponse
@@ -130,7 +127,6 @@ class AuthController extends Controller
 
     }
 
-
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
@@ -139,7 +135,6 @@ class AuthController extends Controller
             'message' => 'Logged out successfully',
         ]);
     }
-
 
     public function forgotPassword(Request $request)
     {
@@ -157,23 +152,25 @@ class AuthController extends Controller
             ]);
         } else {
             // Random new password
-            $newPassword = Str::random(8);
-            // Encrypt the password
-            $encryptPassword = Hash::make($newPassword);
+            $OTP = Str::random(5);
 
             // update the password with the new password
             $user = User::where('email', $request->email)->firstOrFail();
 
-            $user::update([
+            $newUser = [
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'OTP' => $OTP,
                 'email_verified_at' => now(),
-                'password' => $encryptPassword,
+                'password' => $user->password,
                 'remember_token' => $user->remember_token,
                 'updated_at' => now(),
                 'created_at' => $user->created_at,
-            ]);
+            ];
+
+            $user->update($newUser);
+
 
             // $toEmail = $email['email'];
             // $message = 'Your password has been reset';
@@ -184,11 +181,43 @@ class AuthController extends Controller
 
             return response()->json([
                 'data' => [
-                    'message' => __($status)
+                    'message' => 'Please check your email to get your new password',
+                    'New Password' => $OTP
                 ]
             ]);
 
         }
     }
-}
 
+    public function comfirmCode(Request $request){
+        try{
+            $confirm_code = $request->confirm_code;
+            $user = User::where('OTP',$confirm_code)->firstOrFail();
+            return response()->json(['token' => $user->createToken('API TOKEN')->plainTextToken]);
+        }catch (\Throwable) {
+            return response()->json([
+                'status' => false,
+                'error' => 'Your code is not matches'
+            ], 500);
+        }
+    }
+
+    public function resetPassword(Request $request){
+        try{
+            if($request->new_password === $request->confirm_password){
+                $user_id = Auth()->user()->id;
+                $user = User::find($user_id);
+                $user->update(['password' => Hash::make($request->new_password)]);
+                return response()->json([
+                   'status' => true,
+                   'message' => 'Your password has been reset'
+                ]);
+            }
+        }catch(\Throwable $e){
+            return response()->json([
+                'status' => false,
+                'message' => 'Your password not match'
+             ]);
+        };
+    }
+}

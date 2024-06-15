@@ -13,7 +13,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/me', [AuthController::class, 'index'])->middleware('auth:sanctum')->name('me');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/me', [AuthController::class, 'index'])->middleware('auth:sanctum');
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/confirm-code', [AuthController::class, 'comfirmCode']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('auth:sanctum')->name('reset.password');
 
 
 //emoji
