@@ -43,10 +43,14 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $profile = Profile::store($request, $id);
         return ["success" => true, "Message" =>"Profile updated successfully"];
     }
+
+    // public function edit($request, $id){
+    //     $profile = Profile::store($request, $id);
+    //     return ["success" => true, "Message" =>"Profile updated successfully"];
+    // }
 
     /**
      * Remove the specified resource from storage.

@@ -33,6 +33,7 @@ Route::delete('/like/delete/{id}',[LikeController::class,'destroy']);
 Route::post('/profile/create',[ProfileController::class,'store']);
 Route::get('/profile/show/{id}',[ProfileController::class,'show']);
 Route::put('/profile/update/{id}',[ProfileController::class,'update']);
+// Route::put('/profile/edit/{id}',[ProfileController::class,'edit']);
 
 Route::get('/post/list',[PostController::class,'index'])->name('post.list');
 Route::post('/post/create',[PostController::class,'store'])->name('post.create');

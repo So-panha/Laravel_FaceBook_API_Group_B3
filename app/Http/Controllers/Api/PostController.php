@@ -63,6 +63,7 @@ class PostController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        dd($request);
         $validatedData = $request->validate([
             'caption' => 'required|string',
             'user_id' => 'required|integer',
