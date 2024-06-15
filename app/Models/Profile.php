@@ -12,13 +12,15 @@ class Profile extends Model
         'birthday',
         'place',
         'bio',
-        'avatar_id',
-        
     ];
+    public function avatar(){
+        return $this->hasMany(Avatar::class,'profile_id');
+    }
     
     public static function store($request, $id = null){
-        $data = $request->only( 'birthday','place','bio','avatar_id' );
+        $data = $request->only( 'birthday','place','bio','avatar' );
         $data = self::updateOrCreate(['id' => $id], $data);
+        $data->avatar()->create(['image' => $request->file('avatar')]);
         return $data;
         
     }
