@@ -18,7 +18,7 @@ class ShowProfileResource extends JsonResource
             'birthday' =>$this->birthday,
             'place'=>$this->place,
             'bio'=>$this->bio,
-            // 'avatar_url'=>$this->avatar
+            'avatar_url'=>$this->avatar
         ];
     }
 }
