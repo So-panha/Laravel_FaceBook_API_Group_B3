@@ -25,6 +25,8 @@ class RequestFriendController extends Controller
         $addFriend->receiver_id = $request->receiver_id;
 
         RequestFriend::store($addFriend);
+
+        return response()->json(['success' => true,'message' => 'Request sent successfully']);
     }
 
     /**
@@ -35,7 +37,7 @@ class RequestFriendController extends Controller
         //
         $listFriendsRequest = RequestFriend::where('receiver_id', Auth()->user()->id)->get();
         $listFriendsRequest = ListFriendRequestResource::collection($listFriendsRequest);
-        return $listFriendsRequest;
+        return response()->json(['success' => true,'listFriendsRequest' => $listFriendsRequest]);
     }
 
     public function acceptFriend(string $id)
