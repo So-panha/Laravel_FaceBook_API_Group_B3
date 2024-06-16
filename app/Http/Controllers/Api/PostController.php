@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\PostUpdateResource;
 use App\Models\Post;
 use Auth;
+use Exception;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -30,7 +33,6 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-
         $post = new Post();
         $post->caption = $request->caption;
         $post->user_id = Auth()->user()->id;
@@ -39,6 +41,10 @@ class PostController extends Controller
 
         Post::store($post);
 
+        return response()->json([
+            "success" => true,
+            "message" => "Post created successfully",
+        ], 200);
     }
 
     /**
@@ -57,23 +63,37 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PostUpdateRequest $request, string $id)
     {
-        //
-        $validatedData = $request->validate([
-            'caption' => 'required|string',
-            'photo_id' => 'required|string',
-            'video_id' => 'required|string',
-        ]);
 
         $post = Post::findOrFail($id);
-        $post->update($validatedData);
+        try{
+            if($post->user_id == Auth()->user()->id){
 
-        return response()->json([
-            "success" => true,
-            "message" => "Post updated successfully",
-        ], 200);
+                $updateData = new Post;
+                $updateData->caption = $request->caption;
+                $updateData->user_id = Auth()->user()->id;
+
+                Post::updatePost($updateData,$id);
+                return response()->json([
+                    "success" => true,
+                    "message" => "Post updated successfully",
+                ], 200);
+            }else{
+                return response()->json([
+                    "success" => false,
+                    "message" => "You are not allowed to update this post"
+                ], 400);
+            }
+        }catch(Exception $e){
+            return response()->json([
+                "success" => false,
+                "message" => $e->getMessage()
+            ], 400);
+        }
+
     }
+
 
     /**
      * Remove the specified resource from storage.

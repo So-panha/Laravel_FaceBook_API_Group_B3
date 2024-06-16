@@ -44,7 +44,7 @@ class ProfileController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $profile = Profile::store($request, $id);
+        Profile::store($request, $id);
         return ["success" => true, "Message" =>"Profile updated successfully"];
     }
 
