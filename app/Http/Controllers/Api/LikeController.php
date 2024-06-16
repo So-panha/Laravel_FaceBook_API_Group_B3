@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Like;
 use Auth;
+use Exception;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller

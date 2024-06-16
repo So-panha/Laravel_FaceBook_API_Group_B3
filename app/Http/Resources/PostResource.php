@@ -20,7 +20,9 @@ class PostResource extends JsonResource
             'user' => new ShowUserResource($this->user),
             'photo' => ImageResource::collection($this->image),
             'video' => VideoResource::collection($this->video),
-            'created_at' => $this->created_at->format('M D Y, h:m:s a')
+            'created_at' => $this->created_at->format('M D Y, h:m:s a'),
+            'likes' => LikeResource::collection($this->like),
+            // 'comments' => CommentResource::collection($this->comment),
         ];
     }
 }
