@@ -110,79 +110,6 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-
-    /**
- * @OA\Get(
- *     path="/api/profile/show/{id}",
- *     summary="Show a profile",
- *     description="Endpoint to fetch details of a user profile by ID.",
- *     operationId="showProfile",
- *     tags={"Profile"},
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         description="ID of the profile to fetch",
- *         @OA\Schema(
- *             type="integer",
- *             example=1
- *         )
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="Profile details fetched successfully",
- *         @OA\JsonContent(
- *             @OA\Property(
- *                 property="id",
- *                 type="integer",
- *                 example=1
- *             ),
- *             @OA\Property(
- *                 property="birthday",
- *                 type="string",
- *                 format="date",
- *                 example="2006-06-06",
- *                 description="Birth date for the user"
- *             ),
- *             @OA\Property(
- *                 property="place",
- *                 type="string",
- *                 example="Pursat province",
- *                 description="Place address of user"
- *             ),
- *             @OA\Property(
- *                 property="bio",
- *                 type="string",
- *                 example="Passionate about coding and technology",
- *                 description="Biography or description of the user"
- *             )
- *         )
- *     ),
- *     @OA\Response(
- *         response=404,
- *         description="Profile not found",
- *         @OA\JsonContent(
- *             @OA\Property(
- *                 property="error",
- *                 type="string",
- *                 example="Profile not found"
- *             )
- *         )
- *     ),
- *     @OA\Response(
- *         response=500,
- *         description="Internal server error",
- *         @OA\JsonContent(
- *             @OA\Property(
- *                 property="error",
- *                 type="string",
- *                 example="Internal server error"
- *             )
- *         )
- *     )
- * )
- */
-
     public function show(string $id)
     {
         //
@@ -290,7 +217,6 @@ class ProfileController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
         $profile = Profile::store($request, $id);
         return ["success" => true, "Message" =>"Profile updated successfully"];
     }
