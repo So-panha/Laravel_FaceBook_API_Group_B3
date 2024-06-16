@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/profile')->group(function () {
         Route::post('/create', [ProfileController::class, 'store'])->name('profile.create')->name('profile.create');
         Route::get('/show', [ProfileController::class, 'show'])->name('profile.show')->name('profile.create');
-        Route::put('/update/{id}', [ProfileController::class, 'update'])->name('profile.update')->name('profile.create');
+        Route::put('/update', [ProfileController::class, 'update'])->name('profile.update')->name('profile.create');
     });
 
 
