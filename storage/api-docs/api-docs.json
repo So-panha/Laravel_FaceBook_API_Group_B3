@@ -749,104 +749,6 @@
                 }
             }
         },
-        "/api/post/list": {
-            "get": {
-                "tags": [
-                    "Post"
-                ],
-                "summary": "List posts",
-                "description": "Endpoint to retrieve a list of posts.",
-                "operationId": "listPosts",
-                "responses": {
-                    "200": {
-                        "description": "List of posts retrieved successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "id": {
-                                                "description": "ID of the post",
-                                                "type": "integer",
-                                                "example": 1
-                                            },
-                                            "caption": {
-                                                "description": "Caption of the post",
-                                                "type": "string",
-                                                "example": "This is a post caption"
-                                            },
-                                            "user_id": {
-                                                "description": "ID of the user who created the post",
-                                                "type": "integer",
-                                                "example": 1
-                                            },
-                                            "created_at": {
-                                                "description": "Timestamp when the post was created",
-                                                "type": "string",
-                                                "format": "date-time",
-                                                "example": "2023-01-01T00:00:00.000Z"
-                                            },
-                                            "updated_at": {
-                                                "description": "Timestamp when the post was updated",
-                                                "type": "string",
-                                                "format": "date-time",
-                                                "example": "2023-01-01T00:00:00.000Z"
-                                            },
-                                            "images": {
-                                                "description": "Images associated with the post",
-                                                "type": "array",
-                                                "items": {
-                                                    "properties": {
-                                                        "image_url": {
-                                                            "description": "URL of the image",
-                                                            "type": "string",
-                                                            "example": "http://example.com/image.jpg"
-                                                        }
-                                                    },
-                                                    "type": "object"
-                                                }
-                                            },
-                                            "videos": {
-                                                "description": "Videos associated with the post",
-                                                "type": "array",
-                                                "items": {
-                                                    "properties": {
-                                                        "video_url": {
-                                                            "description": "URL of the video",
-                                                            "type": "string",
-                                                            "example": "http://example.com/video.mp4"
-                                                        }
-                                                    },
-                                                    "type": "object"
-                                                }
-                                            }
-                                        },
-                                        "type": "object"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "type": "string",
-                                            "example": "Internal server error"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/post/create": {
             "post": {
                 "tags": [
@@ -1438,94 +1340,6 @@
                 }
             }
         },
-        "/api/profile/show/{id}": {
-            "get": {
-                "tags": [
-                    "Profile"
-                ],
-                "summary": "Show a profile",
-                "description": "Endpoint to fetch details of a user profile by ID.",
-                "operationId": "showProfile",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the profile to fetch",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Profile details fetched successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "birthday": {
-                                            "description": "Birth date for the user",
-                                            "type": "string",
-                                            "format": "date",
-                                            "example": "2006-06-06"
-                                        },
-                                        "place": {
-                                            "description": "Place address of user",
-                                            "type": "string",
-                                            "example": "Pursat province"
-                                        },
-                                        "bio": {
-                                            "description": "Biography or description of the user",
-                                            "type": "string",
-                                            "example": "Passionate about coding and technology"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Profile not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "type": "string",
-                                            "example": "Profile not found"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "error": {
-                                            "type": "string",
-                                            "example": "Internal server error"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/profile/update/{id}": {
             "put": {
                 "tags": [
@@ -1642,8 +1456,87 @@
                 }
             }
         },
+        "/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Login user",
+                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful login",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login success"
+                                        },
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/me": {
             "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get current user details",
                 "operationId": "39adb19a53b45ea9e2410f04b00b87ec",
                 "responses": {
                     "200": {
@@ -1651,26 +1544,361 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer"
-                                            },
-                                            "name": {
-                                                "type": "string"
-                                            },
-                                            "email": {
-                                                "type": "string"
-                                            }
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
                                         },
-                                        "type": "object"
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "john.doe@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Register a new user",
+                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
                                     }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User created successfully"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
                     }
                 }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Logout user",
+                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/forgot-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Forgot password",
+                "operationId": "da27e3923ff357f8610f31cf2cb83224",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "john.doe@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password reset link sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "passwords.sent"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/confirm-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Confirm code for password reset",
+                "operationId": "1550ab33bd25cffb3c762a8ad083a652",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "confirm_code"
+                                ],
+                                "properties": {
+                                    "confirm_code": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Code confirmed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Code not matched",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reset-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Reset password",
+                "operationId": "7703a82fcc6647515895149f640b8722",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "new_password",
+                                    "confirm_password"
+                                ],
+                                "properties": {
+                                    "new_password": {
+                                        "type": "string",
+                                        "example": "newpassword123"
+                                    },
+                                    "confirm_password": {
+                                        "type": "string",
+                                        "example": "newpassword123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password reset successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Your password has been reset"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Password not matched",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },

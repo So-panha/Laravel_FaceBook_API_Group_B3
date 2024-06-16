@@ -19,6 +19,37 @@ use Nette\Utils\Random;
 
 class AuthController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/login",
+     *     summary="Login user",
+     *     tags={"User"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email","password"},
+     *             @OA\Property(property="email", type="string", format="email", example="john.doe@example.com"),
+     *             @OA\Property(property="password", type="string", example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful login",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Login success"),
+     *             @OA\Property(property="access_token", type="string"),
+     *             @OA\Property(property="token_type", type="string", example="Bearer")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="User not found")
+     *         )
+     *     )
+     * )
+     */
     public function login(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -48,32 +79,25 @@ class AuthController extends Controller
         ]);
     }
 
-        /**
-     * @OA\Get(
-     *     path="/me",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful response",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(
-     *                 @OA\Property(
-     *                     property="id",
-     *                     type="integer"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="string"
-     *                 )
-     *             )
-     *         )
-     *     )
-     * )
-     */
+       /**
+ * @OA\Get(
+ *     path="/me",
+ *     summary="Get current user details",
+ *     tags={"User"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful response",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="name", type="string", example="John Doe"),
+ *             @OA\Property(property="email", type="string", format="email", example="john.doe@example.com")
+ *         )
+ *     )
+ * )
+ */
+
 
     public function index(Request $request)
     {
@@ -85,37 +109,40 @@ class AuthController extends Controller
             'data' => $user,
         ]);
     }
-
-         /**
-     * @OA\Get(
+     /**
+     * @OA\Post(
      *     path="/register",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful response",
+     *     summary="Register a new user",
+     *     tags={"User"},
+     *     @OA\RequestBody(
+     *         required=true,
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(
-     *                 @OA\Property(
-     *                     property="id",
-     *                     type="integer"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="password",
-     *                     type="string"
-     *                 )
-     *             )
+     *             required={"name","email","password"},
+     *             @OA\Property(property="name", type="string", example="John Doe"),
+     *             @OA\Property(property="email", type="string", format="email", example="john.doe@example.com"),
+     *             @OA\Property(property="password", type="string", example="password123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="User registered successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="User created successfully"),
+     *             @OA\Property(property="token", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Validation error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="boolean", example=false),
+     *             @OA\Property(property="error", type="object")
      *         )
      *     )
      * )
      */
+
     public function register(Request $request)
     {
         try {
@@ -155,32 +182,23 @@ class AuthController extends Controller
         }
 
     }
-         /**
-     * @OA\Get(
+
+    /**
+     * @OA\Post(
      *     path="/logout",
+     *     summary="Logout user",
+     *     tags={"User"},
+     *     security={{"bearerAuth": {}}},
      *     @OA\Response(
      *         response=200,
-     *         description="Successful response",
+     *         description="Successfully logged out",
      *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(
-     *                 @OA\Property(
-     *                     property="id",
-     *                     type="integer"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="email",
-     *                     type="string"
-     *                 )
-     *             )
+     *             @OA\Property(property="message", type="string", example="Logged out successfully")
      *         )
      *     )
      * )
      */
+    
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
@@ -189,7 +207,37 @@ class AuthController extends Controller
             'message' => 'Logged out successfully',
         ]);
     }
-
+     /**
+     * @OA\Post(
+     *     path="/forgot-password",
+     *     summary="Forgot password",
+     *     tags={"User"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email"},
+     *             @OA\Property(property="email", type="string", format="email", example="john.doe@example.com")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Password reset link sent",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="message", type="string", example="passwords.sent")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="boolean", example=false),
+     *             @OA\Property(property="error", type="string")
+     *         )
+     *     )
+     * )
+     */
     public function forgotPassword(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -243,7 +291,35 @@ class AuthController extends Controller
 
         }
     }
-
+     /**
+     * @OA\Post(
+     *     path="/confirm-password",
+     *     summary="Confirm code for password reset",
+     *     tags={"User"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"confirm_code"},
+     *             @OA\Property(property="confirm_code", type="string", example="12345")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Code confirmed successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="token", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Code not matched",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="boolean", example=false),
+     *             @OA\Property(property="error", type="string")
+     *         )
+     *     )
+     * )
+     */
     public function comfirmCode(Request $request){
         try{
             $confirm_code = $request->confirm_code;
@@ -256,7 +332,38 @@ class AuthController extends Controller
             ], 500);
         }
     }
-
+    /**
+     * @OA\Post(
+     *     path="/reset-password",
+     *     summary="Reset password",
+     *     tags={"User"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"new_password", "confirm_password"},
+     *             @OA\Property(property="new_password", type="string", example="newpassword123"),
+     *             @OA\Property(property="confirm_password", type="string", example="newpassword123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Password reset successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Your password has been reset")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Password not matched",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     )
+     * )
+     */
     public function resetPassword(Request $request){
         try{
             if($request->new_password === $request->confirm_password){
