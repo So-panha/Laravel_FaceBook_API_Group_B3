@@ -15,7 +15,8 @@ class FriendListResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'friends' => new ShowUserResource($this->user),
+            'friend_id' => $this->id,
+            'friend_infor' => new ShowUserResource($this->user),
         ];
     }
 }
