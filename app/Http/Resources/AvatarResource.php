@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ShowProfileResource extends JsonResource
+class AvatarResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,8 @@ class ShowProfileResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'birthday' =>$this->birthday,
-            'place'=>$this->place,
-            'bio'=>$this->bio,
-            'avatar_url'=> AvatarResource::collection($this->avatar)
+            'id' => $this->id,
+            'image' => $this->image,
         ];
     }
 }

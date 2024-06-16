@@ -103,15 +103,22 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         //
-        $profile = new Profile;
-        $profile->user_id = Auth()->user()->id;
-        $profile->birthday = $request->birthday;
-        $profile->place = $request->place;
-        $profile->bio = $request->bio;
-        $profile->avatar = $request->file('avatar');
+        try{
+            $profile = new Profile;
+            $profile->user_id = Auth()->user()->id;
+            $profile->birthday = $request->birthday;
+            $profile->place = $request->place;
+            $profile->bio = $request->bio;
+            $profile->avatar = $request->file('avatar');
+            $profile = Profile::store($profile);
+            return ["success" => true, "Message" => "Profile created successfully"];
+        }catch(\Throwable){
+            return response()->json([
+                "success" => false,
+                "message" => "Your already have profile"
+            ], 500);
+        }
 
-        $profile = Profile::store($profile);
-        return ["success" => true, "Message" => "Profile created successfully"];
     }
 
     /**
