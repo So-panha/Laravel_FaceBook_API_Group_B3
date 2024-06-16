@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Like extends Model
 {
@@ -14,11 +15,13 @@ class Like extends Model
         'emoji_id',
     ];
 
-    public function user(){
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
-    public function emoji(){
-        return $this->hasOne(Emoji::class);
+    public function emoji(): BelongsTo
+    {
+        return $this->belongsTo(Emoji::class);
     }
 
     public static function store($request, $id = null){
@@ -26,5 +29,6 @@ class Like extends Model
         $data = self::updateOrCreate(['id' => $id], $data);
         return $data;
     }
+
 
 }

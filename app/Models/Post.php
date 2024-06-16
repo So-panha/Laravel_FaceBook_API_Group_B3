@@ -31,10 +31,17 @@ class Post extends Model
         return $this->hasMany(MediaVideo::class);
     }
 
+    public function like(): HasMany
+    {
+        return $this->hasMany(Like::class,'post_id');
+    }
+
     public static function list()
     {
         return self::all();
     }
+
+
 
     public static function store($request)
     {
