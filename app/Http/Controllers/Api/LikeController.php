@@ -14,67 +14,6 @@ class LikeController extends Controller
      * Display a listing of the resource.
      */
 
-
-    /**
-     * @OA\Get(
-     *     path="/api/like/list",
-     *     summary="List likes",
-     *     description="Endpoint to retrieve a list of likes.",
-     *     operationId="listLikes",
-     *     tags={"Like"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="List of likes retrieved successfully",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="id",
-     *                     type="integer",
-     *                     example=1,
-     *                     description="ID of the like"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="user_id",
-     *                     type="integer",
-     *                     example=101,
-     *                     description="ID of the user who liked"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="emoji_id",
-     *                     type="integer",
-     *                     example=201,
-     *                     description="ID of the emoji liked"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="created_at",
-     *                     type="string",
-     *                     format="date-time",
-     *                     example="2024-06-17 12:34:56",
-     *                     description="Date and time when the like was created"
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=500,
-     *         description="Internal server error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="error", type="string", example="Internal server error")
-     *         )
-     *     )
-     * )
-     */
-
-    public function index()
-    {
-        //
-        $likes = Like::all();
-        return response(['success' => true, 'data' => $likes], 200);
-
-    }
-
     /**
      * Store a newly created resource in storage.
      */

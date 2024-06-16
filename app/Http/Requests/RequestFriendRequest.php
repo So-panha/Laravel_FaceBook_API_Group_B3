@@ -23,7 +23,7 @@ class RequestFriendRequest extends DefaultRequest
     {
         return [
             //
-            'receiver_id' =>'required|integer|unique:request_friends,receiver_id,except,id',
+            'receiver_id' =>'required|integer',
         ];
     }
 }

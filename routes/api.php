@@ -52,7 +52,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('/like')->group(function () {
         //likes
-        Route::get('/list', [LikeController::class, 'index'])->name('like.list');
         Route::post('/create', [LikeController::class, 'store'])->name('like.create');
         Route::delete('/delete/{id}', [LikeController::class, 'destroy'])->name('like.delete');
     });

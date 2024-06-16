@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestFriendRequest;
 use App\Http\Resources\ListFriendRequestResource;
-use App\Http\Resources\ShowUserResource;
 use App\Models\Friend;
 use App\Models\RequestFriend;
 use Auth;
