@@ -13,6 +13,10 @@ class RequestFriend extends Model
         'receiver_id',
     ];
 
+    public function sender(){
+        return $this->belongsTo(User::class,'sender_id');
+    }
+
     public static function store($request, $id = null){
         $data = $request->only('sender_id','receiver_id');
         $data = self::updateOrCreate(['id' => $id], $data);

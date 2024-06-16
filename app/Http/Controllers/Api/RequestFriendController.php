@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestFriendRequest;
+use App\Http\Resources\ListFriendRequestResource;
+use App\Http\Resources\ShowUserResource;
 use App\Models\RequestFriend;
 use Illuminate\Http\Request;
 
@@ -28,25 +30,12 @@ class RequestFriendController extends Controller
     public function listFriendsRequest()
     {
         //
-        dd(1);
+        $listFriendsRequest = RequestFriend::where('receiver_id', Auth()->user()->id)->get();
+        $listFriendsRequest = ListFriendRequestResource::collection($listFriendsRequest);
+        return $listFriendsRequest;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
+    
     /**
      * Remove the specified resource from storage.
      */
