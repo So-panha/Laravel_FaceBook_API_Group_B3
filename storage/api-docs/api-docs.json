@@ -1340,6 +1340,110 @@
                 }
             }
         },
+        "/api/profile/show/{id}": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Show a profile",
+                "description": "Endpoint to retrieve a user profile by ID.",
+                "operationId": "showProfile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the profile to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Profile retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "ID of the profile",
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "birthday": {
+                                            "description": "Birth date for the user",
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2006-06-06"
+                                        },
+                                        "place": {
+                                            "description": "Place address of user",
+                                            "type": "string",
+                                            "example": "Pursat province"
+                                        },
+                                        "bio": {
+                                            "description": "Biography or description of the user",
+                                            "type": "string",
+                                            "example": "Passionate about coding and technology"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid input"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Profile not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Profile not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Internal server error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/profile/update/{id}": {
             "put": {
                 "tags": [

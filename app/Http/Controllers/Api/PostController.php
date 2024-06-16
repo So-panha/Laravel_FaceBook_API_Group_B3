@@ -17,8 +17,50 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
     public function index()
-    {
+    {/**
+ * @OA\Get(
+ *     path="/api/post/list",
+ *     summary="Get a list of posts",
+ *     description="Endpoint to retrieve a list of posts.",
+ *     operationId="listPosts",
+ *     tags={"Post"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Posts retrieved successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="success",
+ *                 type="boolean",
+ *                 example=true,
+ *                 description="Indicates if the request was successful"
+ *             ),
+ *             @OA\Property(
+ *                 property="message",
+ *                 type="string",
+ *                 example="Posts retrieved successfully",
+ *                 description="Message describing the response"
+ *             ),
+ *             @OA\Property(
+ *                 property="data",
+ *                 type="array",
+ *                 description="List of posts",
+ *                 @OA\Items(ref="#/components/schemas/PostResource")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Internal server error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Internal server error")
+ *         )
+ *     )
+ * )
+ */
+
         //
         $posts = Post::list();
         return response()->json([
