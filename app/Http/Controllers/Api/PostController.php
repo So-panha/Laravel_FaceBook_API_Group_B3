@@ -416,13 +416,6 @@ class PostController extends Controller
  */
     public function update(Request $request, string $id)
     {
-        //
-
-        $validatedData = $request->validate([
-            'caption' => 'required|string',
-            'photo_id' => 'required|string',
-            'video_id' => 'required|string',
-        ]);
 
         $post = Post::findOrFail($id);
         try{

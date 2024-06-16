@@ -30,22 +30,4 @@ class Avatar extends Model
         }
     }
 
-    public static function store($request, $id=null){
-        $data = $request->only('image');
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $path = $file->storeAs('uploads/avatar', $filename, 'public');
-            $data['image'] = Storage::url($path);
-        }
-        $media = self::updateOrCreate(['id' => $id], $data);
-
-        return $media;
-    }
-
-    public static function destoy($id){
-        $avatar = self::find($id);
-        $avatar->delete();
-    }
 }

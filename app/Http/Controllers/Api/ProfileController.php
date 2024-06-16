@@ -103,17 +103,24 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         //
-        $profile = Profile::store($request);
-        return ["success" => true, "Message" =>"Profile created successfully"];
+        $profile = new Profile;
+        $profile->user_id = Auth()->user()->id;
+        $profile->birthday = $request->birthday;
+        $profile->place = $request->place;
+        $profile->bio = $request->bio;
+        $profile->avatar = $request->file('avatar');
+
+        $profile = Profile::store($profile);
+        return ["success" => true, "Message" => "Profile created successfully"];
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
         //
-        $profile = Profile::find($id);
+        $profile = Profile::where('user_id', Auth()->user()->id)->first();
         $profile = new ShowProfileResource ($profile);
         return ["success" => true, "data" =>$profile];
     }
@@ -221,16 +228,4 @@ class ProfileController extends Controller
         return ["success" => true, "Message" =>"Profile updated successfully"];
     }
 
-    // public function edit($request, $id){
-    //     $profile = Profile::store($request, $id);
-    //     return ["success" => true, "Message" =>"Profile updated successfully"];
-    // }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
