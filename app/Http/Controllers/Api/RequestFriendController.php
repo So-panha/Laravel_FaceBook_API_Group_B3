@@ -68,7 +68,87 @@ class RequestFriendController extends Controller
         $listFriendsRequest = ListFriendRequestResource::collection($listFriendsRequest);
         return response()->json(['success' => true,'listFriendsRequest' => $listFriendsRequest]);
     }
+    /**
+     * @OA\Post(
+     *     path="/api/friend_request/{id}/accept",
+     *     operationId="acceptFriend",
+     *     tags={"Friends"},
+     *     summary="Accept a friend request",
+     *     description="Accepts a friend request received by the authenticated user",
+     *     security={{"bearer_token":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
 
+      /**
+     * @OA\Delete(
+     *     path="/api/friend_request/{id}/reject",
+     *     operationId="rejectFriend",
+     *     tags={"Friends"},
+     *     summary="Reject a friend request",
+     *     description="Rejects a friend request received by the authenticated user",
+     *     security={{"bearer_token":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="success", type="boolean"),
+     *             @OA\Property(property="message", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
     public function acceptFriend(string $id)
     {
         //
