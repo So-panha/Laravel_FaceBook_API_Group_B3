@@ -20,28 +20,42 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middle
 
 
 //emoji
-Route::get('/emoji/list',[EmojiController::class,'index'])->name('emoji.list');
-Route::post('/emoji/create',[EmojiController::class, 'store'])  ;
-Route::delete('/emoji/delete/{id}',[EmojiController::class, 'destroy']);
+Route::get('/emoji/list', [EmojiController::class, 'index'])->name('emoji.list');
+Route::post('/emoji/create', [EmojiController::class, 'store']);
+Route::delete('/emoji/delete/{id}', [EmojiController::class, 'destroy']);
 
 //likes
 
-Route::get('/like/list',[LikeController::class,'index']);
-Route::post('/like/create',[LikeController::class,'store']);
-Route::delete('/like/delete/{id}',[LikeController::class,'destroy']);
+Route::get('/like/list', [LikeController::class, 'index']);
+Route::post('/like/create', [LikeController::class, 'store']);
+Route::delete('/like/delete/{id}', [LikeController::class, 'destroy']);
 
 
 //profile
+<<<<<<< HEAD
 Route::post('/profile/create',[ProfileController::class,'store']);
 Route::get('/profile/show/{id}',[ProfileController::class,'show']);
 Route::put('/profile/update/{id}',[ProfileController::class,'update']);
 // Route::put('/profile/edit/{id}',[ProfileController::class,'edit']);
+=======
+Route::post('/profile/create', [ProfileController::class, 'store']);
+Route::get('/profile/show/{id}', [ProfileController::class, 'show']);
+Route::put('/profile/update/{id}', [ProfileController::class, 'update']);
 
-Route::get('/post/list',[PostController::class,'index'])->name('post.list');
-Route::post('/post/create',[PostController::class,'store'])->name('post.create');
-Route::get('/post/show/{id}',[PostController::class,'show'])->name('post.show');
-Route::put('/post/update/{id}',[PostController::class,'update'])->name('post.update');
-Route::delete('/post/delete/{id}',[PostController::class,'destroy'])->name('post.destroy');
+
+// Post
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('/post')->group(function (){
+        Route::get('/list', [PostController::class, 'index'])->name('post.list');
+        Route::post('/create', [PostController::class, 'store'])->name('post.create');
+        Route::get('/show/{id}', [PostController::class, 'show'])->name('post.show');
+        Route::put('/update/{id}', [PostController::class, 'update'])->name('post.update');
+        Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+    });
+});
+>>>>>>> e72742a3e439ddb043cbbce4e189def66804c5d2
+
 
 
 

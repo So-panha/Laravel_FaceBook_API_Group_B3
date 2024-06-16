@@ -171,13 +171,14 @@ class AuthController extends Controller
 
             $user->update($newUser);
 
+            $email = $user->email;
 
-            // $toEmail = $email['email'];
-            // $message = 'Your password has been reset';
-            // $subject = 'Here is your new password';
+            $toEmail = $email;
+            $message = 'Your password has been reset';
+            $subject = 'Here is your new password';
 
-            // $response = Mail::to($toEmail)->send(new WelcomeEmail($message,$subject));
-            // dd($response);
+            $response = Mail::to($toEmail)->send(new WelcomeEmail($message,$subject));
+            dd($response);
 
             return response()->json([
                 'data' => [

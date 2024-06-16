@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,33 +17,28 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
-    return response()->json([
-        "success" => true,
-        "message" => "Posts retrieved successfully",
-        "data" => PostResource::collection($posts)
-    ], 200);
+        $posts = Post::list();
+        return response()->json([
+            "success" => true,
+            "message" => "Posts retrieved successfully",
+            "data" => PostResource::collection($posts)
+        ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
-        $validatedData = $request->validate([
-            'caption' => 'required|string',
-            'user_id' => 'required|integer',
-            'photo_id' => 'required|integer',
-            'video_id' => 'required|integer',
-        ]);
 
-        $post = Post::create($validatedData);
+        $post = new Post();
+        $post->caption = $request->caption;
+        $post->user_id = Auth()->user()->id;
+        $post->image = $request->file('image');
+        $post->video = $request->file('video');
 
-        return response()->json([
-            "success" => true,
-            "message" => "Post created successfully",
-        ], 201);
+        Post::store($post);
+
     }
 
     /**
@@ -66,9 +63,8 @@ class PostController extends Controller
         dd($request);
         $validatedData = $request->validate([
             'caption' => 'required|string',
-            'user_id' => 'required|integer',
-            'photo_id' => 'required|integer',
-            'video_id' => 'required|integer',
+            'photo_id' => 'required|string',
+            'video_id' => 'required|string',
         ]);
 
         $post = Post::findOrFail($id);
