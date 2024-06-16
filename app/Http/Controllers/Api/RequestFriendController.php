@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestFriendRequest;
 use App\Http\Resources\ListFriendRequestResource;
 use App\Http\Resources\ShowUserResource;
+use App\Models\Friend;
 use App\Models\RequestFriend;
+use Auth;
+use Exception;
 use Illuminate\Http\Request;
 
 class RequestFriendController extends Controller
@@ -35,12 +38,37 @@ class RequestFriendController extends Controller
         return $listFriendsRequest;
     }
 
-    
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function acceptFriend(string $id)
     {
         //
+        $acceptFriend = RequestFriend::find($id);
+        try{
+            if ($acceptFriend->receiver_id == Auth()->user()->id){
+                $friend = new Friend();
+                $friend->user_id = Auth()->user()->id;
+                $friend->friend_id = $acceptFriend->sender_id;
+                Friend::store($friend);
+                $acceptFriend->delete();
+                return response()->json(['success' => true, 'message' => 'Accepted successfully']);
+            }
+        }catch(Exception){
+            return response()->json(['success' => false, 'message' => 'Your cannot accept this friend successfully']);
+        }
     }
+
+    public function rejectFriend(string $id)
+    {
+        //
+        $acceptFriend = RequestFriend::find($id);
+        try{
+            if ($acceptFriend->receiver_id == Auth()->user()->id){
+                $acceptFriend->delete();
+                return response()->json(['success' => true, 'message' => 'Reject Friend successfully']);
+            }
+        }catch(Exception){
+            return response()->json(['success' => false, 'message' => 'Your cannot reject friend accept successfully']);
+        }
+    }
+
+
 }
