@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\AvatarController;
 use App\Http\Controllers\Api\EmojiController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ProfileController;
@@ -32,15 +31,21 @@ Route::delete('/like/delete/{id}', [LikeController::class, 'destroy']);
 
 
 //profile
-Route::post('/profile/create',[ProfileController::class,'store']);
-Route::get('/profile/show/{id}',[ProfileController::class,'show']);
-Route::put('/profile/update/{id}',[ProfileController::class,'update']);
-// Route::put('/profile/edit/{id}',[ProfileController::class,'edit']);
+Route::post('/profile/create', [ProfileController::class, 'store']);
+Route::get('/profile/show/{id}', [ProfileController::class, 'show']);
+Route::put('/profile/update/{id}', [ProfileController::class, 'update']);
 
 
+// Post
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('/post')->group(function (){
+        Route::get('/list', [PostController::class, 'index'])->name('post.list');
+        Route::post('/create', [PostController::class, 'store'])->name('post.create');
+        Route::get('/show/{id}', [PostController::class, 'show'])->name('post.show');
+        Route::put('/update/{id}', [PostController::class, 'update'])->name('post.update');
+        Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+    });
+});
 
-//avatar
-
-Route::post('/avatar/create',[AvatarController::class,'store']);
 
