@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\EmojiController;
 use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\API\ListFriendController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\API\RequestFriendController;
@@ -62,7 +63,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/list', [RequestFriendController::class, 'listFriendsRequest']);
         Route::post('/accept_friend/{id}', [RequestFriendController::class, 'acceptFriend']);
         Route::post('/reject_friend/{id}', [RequestFriendController::class, 'rejectFriend']);
-        Route::delete('/delete/{id}', [RequestFriendController::class, 'destroy']);
+    });
+
+    Route::prefix('/friend')->group(function (){
+        //add friends
+        Route::get('/list', [ListFriendController::class, 'index']);
+        Route::delete('/delete/{id}', [ListFriendController::class, 'destroy']);
     });
 });
 

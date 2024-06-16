@@ -13,6 +13,10 @@ class Friend extends Model
         'friend_id',
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     public static function store($request){
         $data = $request->only('user_id', 'friend_id');
         $data = self::create($data);
