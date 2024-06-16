@@ -17,11 +17,10 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'caption' => $this->caption,
-            'user_id' => $this->user_id,
-            'photo_id' => $this->photo_id,
-            'video_id' => $this->video_id,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s')
+            'user' => new ShowUserResource($this->user),
+            'photo' => ImageResource::collection($this->image),
+            'video' => VideoResource::collection($this->video),
+            'created_at' => $this->created_at->format('M D Y, h:m:s a')
         ];
     }
 }
