@@ -36,10 +36,10 @@ class Post extends Model
         return self::all();
     }
 
-    public static function store($request, $id = null)
+    public static function store($request)
     {
         $data = $request->only('caption','user_id');
-        $data = self::updateOrCreate(['id' => $id], $data);
+        $data = self::create($data);
 
         // fecth into table image
         if ($request->image != null) {
@@ -48,7 +48,7 @@ class Post extends Model
                 foreach ($request->image as $image) {
                     $data->image()->create(['image_url' => $image]);
                 }
-            } 
+            }
         }
         // fecth into table video
         if($request->video != null){
@@ -59,6 +59,13 @@ class Post extends Model
                 }
             }
         }
+        return $data;
+    }
+
+
+    public static function updatePost($request, $id){
+        $data = $request->only('caption','user_id');
+        $data = self::updateOrCreate(['id' => $id], $data);
         return $data;
     }
 

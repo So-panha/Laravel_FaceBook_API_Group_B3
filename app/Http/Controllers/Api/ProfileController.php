@@ -110,7 +110,7 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    
+
     /**
  * @OA\Get(
  *     path="/api/profile/show/{id}",
@@ -290,6 +290,7 @@ class ProfileController extends Controller
 
     public function update(Request $request, string $id)
     {
+        //
         $profile = Profile::store($request, $id);
         return ["success" => true, "Message" =>"Profile updated successfully"];
     }
