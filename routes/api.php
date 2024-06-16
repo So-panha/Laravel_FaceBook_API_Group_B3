@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\EmojiController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\API\RequestFriendController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/list', [CommentController::class, 'index']);
         Route::post('/create', [CommentController::class, 'store']);
         Route::delete('/delete/{id}', [CommentController::class, 'destroy']);
+    });
+
+    Route::prefix('/friend_request')->group(function (){
+        //add friends
+        Route::post('/send', [RequestFriendController::class, 'sendRequest']);
+        Route::get('/list', [RequestFriendController::class, 'listFriendsRequest']);
+        Route::delete('/delete/{id}', [RequestFriendController::class, 'destroy']);
     });
 });
 
