@@ -21,54 +21,62 @@ Route::post('/confirm-code', [AuthController::class, 'comfirmCode']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('auth:sanctum')->name('reset.password');
 
 
-//emoji
-Route::get('/emoji/list', [EmojiController::class, 'index'])->name('emoji.list');
-Route::post('/emoji/create', [EmojiController::class, 'store']);
-Route::delete('/emoji/delete/{id}', [EmojiController::class, 'destroy']);
-
-//profile
-Route::post('/profile/create', [ProfileController::class, 'store']);
-Route::get('/profile/show/{id}', [ProfileController::class, 'show']);
-Route::put('/profile/update/{id}', [ProfileController::class, 'update']);
 
 
 // Post
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('/post')->group(function (){
-        Route::get('/list', [PostController::class, 'index'])->name('post.list');
-        Route::post('/create', [PostController::class, 'store'])->name('post.create');
-        Route::get('/show/{id}', [PostController::class, 'show'])->name('post.show');
-        Route::put('/update/{id}', [PostController::class, 'update'])->name('post.update');
-        Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+
+
+    //emoji
+    Route::prefix('/emoji')->group(function () {
+        Route::get('/list', [EmojiController::class, 'index'])->name('emoji.list');
+        Route::post('/create', [EmojiController::class, 'store'])->name('emoji.create');
+        Route::delete('/delete/{id}', [EmojiController::class, 'destroy'])->name('emoji.delete');
     });
 
-    Route::prefix('/like')->group(function (){
+    //profile
+    Route::prefix('/profile')->group(function () {
+        Route::post('/create', [ProfileController::class, 'store'])->name('profile.create')->name('profile.create');
+        Route::get('/show/{id}', [ProfileController::class, 'show'])->name('profile.show')->name('profile.create');
+        Route::put('/update/{id}', [ProfileController::class, 'update'])->name('profile.update')->name('profile.create');
+    });
+
+
+    Route::prefix('/post')->group(function () {
+        Route::get('/list', [PostController::class, 'index'])->name('post.list')->name('post.list');
+        Route::post('/create', [PostController::class, 'store'])->name('post.create')->name('post.create');
+        Route::get('/show/{id}', [PostController::class, 'show'])->name('post.show')->name('post.show');
+        Route::put('/update/{id}', [PostController::class, 'update'])->name('post.update')->name('post.update');
+        Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('post.destroy')->name('post.delete');
+    });
+
+    Route::prefix('/like')->group(function () {
         //likes
-        Route::get('/list', [LikeController::class, 'index']);
-        Route::post('/create', [LikeController::class, 'store']);
-        Route::delete('/delete/{id}', [LikeController::class, 'destroy']);
+        Route::get('/list', [LikeController::class, 'index'])->name('like.list');
+        Route::post('/create', [LikeController::class, 'store'])->name('like.create');
+        Route::delete('/delete/{id}', [LikeController::class, 'destroy'])->name('like.delete');
     });
 
-    Route::prefix('/comment')->group(function (){
+    Route::prefix('/comment')->group(function () {
         //likes
-        Route::get('/list', [CommentController::class, 'index']);
-        Route::post('/create', [CommentController::class, 'store']);
-        Route::delete('/delete/{id}', [CommentController::class, 'destroy']);
+        Route::get('/list', [CommentController::class, 'index'])->name('comment.list');
+        Route::post('/create', [CommentController::class, 'store'])->name('comment.create');
+        Route::delete('/delete/{id}', [CommentController::class, 'destroy'])->name('comment.delete');
     });
 
-    Route::prefix('/friend_request')->group(function (){
+    Route::prefix('/friend_request')->group(function () {
         //add friends
-        Route::post('/send', [RequestFriendController::class, 'sendRequest']);
-        Route::get('/list', [RequestFriendController::class, 'listFriendsRequest']);
-        Route::post('/accept_friend/{id}', [RequestFriendController::class, 'acceptFriend']);
-        Route::post('/reject_friend/{id}', [RequestFriendController::class, 'rejectFriend']);
+        Route::post('/send', [RequestFriendController::class, 'sendRequest'])->name('friend_request.send');
+        Route::get('/list', [RequestFriendController::class, 'listFriendsRequest'])->name('friend_request.create');
+        Route::post('/accept_friend/{id}', [RequestFriendController::class, 'acceptFriend'])->name('accept_friend.create');
+        Route::post('/reject_friend/{id}', [RequestFriendController::class, 'rejectFriend'])->name('reject_friend.create');
     });
 
-    Route::prefix('/friend')->group(function (){
+    Route::prefix('/friend')->group(function () {
         //add friends
-        Route::get('/list', [ListFriendController::class, 'index']);
-        Route::delete('/delete/{id}', [ListFriendController::class, 'destroy']);
+        Route::get('/list', [ListFriendController::class, 'index'])->name('friend.list');
+        Route::delete('/delete/{id}', [ListFriendController::class, 'destroy'])->name('friend.delete');
     });
 });
 
