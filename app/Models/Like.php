@@ -9,9 +9,9 @@ class Like extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'emoji_id',
-        'show_post_id',
         'user_id',
+        'post_id',
+        'emoji_id',
     ];
 
     public function user(){
@@ -22,18 +22,9 @@ class Like extends Model
     }
 
     public static function store($request, $id = null){
-        $data = $request->only( 'user_id','show_post_id','emoji_id');
+        $data = $request->only('user_id','post_id','emoji_id');
         $data = self::updateOrCreate(['id' => $id], $data);
         return $data;
-        
     }
 
-    public static function destoy($id){
-        $emoji = self::find($id);
-        $emoji->delete();
-    }
-
-
-    
-    
 }

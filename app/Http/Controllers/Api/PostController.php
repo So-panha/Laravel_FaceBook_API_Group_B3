@@ -501,12 +501,12 @@ class PostController extends Controller
                 $post->delete();
                 return response()->json([
                     "success" => true,
-                    "message" => "Post updated successfully",
+                    "message" => "Post delete successfully",
                 ], 200);
             }else{
                 return response()->json([
                     "success" => false,
-                    "message" => "You are not allowed to update this post"
+                    "message" => "You are not allowed to delete this post"
                 ], 400);
             }
         }catch(Exception $e){
