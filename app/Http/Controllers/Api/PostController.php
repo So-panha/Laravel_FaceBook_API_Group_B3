@@ -14,6 +14,94 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    
+    /**
+ * @OA\Get(
+ *     path="/api/post/list",
+ *     summary="List posts",
+ *     description="Endpoint to retrieve a list of posts.",
+ *     operationId="listPosts",
+ *     tags={"Post"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="List of posts retrieved successfully",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 type="object",
+ *                 @OA\Property(
+ *                     property="id",
+ *                     type="integer",
+ *                     example=1,
+ *                     description="ID of the post"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="caption",
+ *                     type="string",
+ *                     example="This is a post caption",
+ *                     description="Caption of the post"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="user_id",
+ *                     type="integer",
+ *                     example=1,
+ *                     description="ID of the user who created the post"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="created_at",
+ *                     type="string",
+ *                     format="date-time",
+ *                     example="2023-01-01T00:00:00.000Z",
+ *                     description="Timestamp when the post was created"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="updated_at",
+ *                     type="string",
+ *                     format="date-time",
+ *                     example="2023-01-01T00:00:00.000Z",
+ *                     description="Timestamp when the post was updated"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="images",
+ *                     type="array",
+ *                     description="Images associated with the post",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="image_url",
+ *                             type="string",
+ *                             example="http://example.com/image.jpg",
+ *                             description="URL of the image"
+ *                         )
+ *                     )
+ *                 ),
+ *                 @OA\Property(
+ *                     property="videos",
+ *                     type="array",
+ *                     description="Videos associated with the post",
+ *                     @OA\Items(
+ *                         type="object",
+ *                         @OA\Property(
+ *                             property="video_url",
+ *                             type="string",
+ *                             example="http://example.com/video.mp4",
+ *                             description="URL of the video"
+ *                         )
+ *                     )
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Internal server error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Internal server error")
+ *         )
+ *     )
+ * )
+ */
     public function index()
     {
         //
@@ -25,9 +113,126 @@ class PostController extends Controller
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+   /**
+ * @OA\Post(
+ *     path="/api/post/create",
+ *     summary="Create a new post",
+ *     description="Endpoint to create a new post.",
+ *     operationId="createPost",
+ *     tags={"Post"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="caption",
+ *                 type="string",
+ *                 example="New post caption",
+ *                 description="Caption of the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="image",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     type="string",
+ *                     example="http://example.com/image.jpg",
+ *                     description="URL of an image associated with the post"
+ *                 )
+ *             ),
+ *             @OA\Property(
+ *                 property="video",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     type="string",
+ *                     example="http://example.com/video.mp4",
+ *                     description="URL of a video associated with the post"
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Post created successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="id",
+ *                 type="integer",
+ *                 example=1,
+ *                 description="ID of the created post"
+ *             ),
+ *             @OA\Property(
+ *                 property="caption",
+ *                 type="string",
+ *                 example="New post caption",
+ *                 description="Caption of the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="user_id",
+ *                 type="integer",
+ *                 example=1,
+ *                 description="ID of the user who created the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="created_at",
+ *                 type="string",
+ *                 format="date-time",
+ *                 example="2023-01-01T00:00:00.000Z",
+ *                 description="Timestamp when the post was created"
+ *             ),
+ *             @OA\Property(
+ *                 property="updated_at",
+ *                 type="string",
+ *                 format="date-time",
+ *                 example="2023-01-01T00:00:00.000Z",
+ *                 description="Timestamp when the post was updated"
+ *             ),
+ *             @OA\Property(
+ *                 property="images",
+ *                 type="array",
+ *                 description="Images associated with the post",
+ *                 @OA\Items(
+ *                     type="object",
+ *                     @OA\Property(
+ *                         property="image_url",
+ *                         type="string",
+ *                         example="http://example.com/image.jpg",
+ *                         description="URL of the image"
+ *                     )
+ *                 )
+ *             ),
+ *             @OA\Property(
+ *                 property="videos",
+ *                 type="array",
+ *                 description="Videos associated with the post",
+ *                 @OA\Items(
+ *                     type="object",
+ *                     @OA\Property(
+ *                         property="video_url",
+ *                         type="string",
+ *                         example="http://example.com/video.mp4",
+ *                         description="URL of the video"
+ *                     )
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Bad request",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Invalid input data")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Internal server error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Internal server error")
+ *         )
+ *     )
+ * )
+ */
     public function store(PostRequest $request)
     {
 
@@ -44,6 +249,104 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
+
+    /**
+ * @OA\Get(
+ *     path="/api/post/show/{id}",
+ *     summary="Get a single post by ID",
+ *     description="Endpoint to retrieve a single post by its ID.",
+ *     operationId="getPostById",
+ *     tags={"Post"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the post to retrieve",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Post retrieved successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="id",
+ *                 type="integer",
+ *                 example=1,
+ *                 description="ID of the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="caption",
+ *                 type="string",
+ *                 example="This is a post caption",
+ *                 description="Caption of the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="user_id",
+ *                 type="integer",
+ *                 example=1,
+ *                 description="ID of the user who created the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="created_at",
+ *                 type="string",
+ *                 format="date-time",
+ *                 example="2023-01-01T00:00:00.000Z",
+ *                 description="Timestamp when the post was created"
+ *             ),
+ *             @OA\Property(
+ *                 property="updated_at",
+ *                 type="string",
+ *                 format="date-time",
+ *                 example="2023-01-01T00:00:00.000Z",
+ *                 description="Timestamp when the post was updated"
+ *             ),
+ *             @OA\Property(
+ *                 property="images",
+ *                 type="array",
+ *                 description="Images associated with the post",
+ *                 @OA\Items(
+ *                     type="object",
+ *                     @OA\Property(
+ *                         property="image_url",
+ *                         type="string",
+ *                         example="http://example.com/image.jpg",
+ *                         description="URL of the image"
+ *                     )
+ *                 )
+ *             ),
+ *             @OA\Property(
+ *                 property="videos",
+ *                 type="array",
+ *                 description="Videos associated with the post",
+ *                 @OA\Items(
+ *                     type="object",
+ *                     @OA\Property(
+ *                         property="video_url",
+ *                         type="string",
+ *                         example="http://example.com/video.mp4",
+ *                         description="URL of the video"
+ *                     )
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Post not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Post not found")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Internal server error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Internal server error")
+ *         )
+ *     )
+ * )
+ */
     public function show(string $id)
     {
         //
@@ -57,10 +360,146 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+
+    /**
+ * @OA\Put(
+ *     path="/api/post/{id}",
+ *     summary="Update a post by ID",
+ *     description="Endpoint to update a post by its ID.",
+ *     operationId="updatePostById",
+ *     tags={"Post"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the post to update",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="caption",
+ *                 type="string",
+ *                 example="Updated post caption",
+ *                 description="New caption for the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="image",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     type="string",
+ *                     example="http://example.com/new-image.jpg",
+ *                     description="URL of an image to add/update"
+ *                 )
+ *             ),
+ *             @OA\Property(
+ *                 property="video",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     type="string",
+ *                     example="http://example.com/new-video.mp4",
+ *                     description="URL of a video to add/update"
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Post updated successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(
+ *                 property="id",
+ *                 type="integer",
+ *                 example=1,
+ *                 description="ID of the updated post"
+ *             ),
+ *             @OA\Property(
+ *                 property="caption",
+ *                 type="string",
+ *                 example="Updated post caption",
+ *                 description="Updated caption of the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="user_id",
+ *                 type="integer",
+ *                 example=1,
+ *                 description="ID of the user who updated the post"
+ *             ),
+ *             @OA\Property(
+ *                 property="created_at",
+ *                 type="string",
+ *                 format="date-time",
+ *                 example="2023-01-01T00:00:00.000Z",
+ *                 description="Timestamp when the post was created"
+ *             ),
+ *             @OA\Property(
+ *                 property="updated_at",
+ *                 type="string",
+ *                 format="date-time",
+ *                 example="2023-01-02T00:00:00.000Z",
+ *                 description="Timestamp when the post was updated"
+ *             ),
+ *             @OA\Property(
+ *                 property="images",
+ *                 type="array",
+ *                 description="Updated images associated with the post",
+ *                 @OA\Items(
+ *                     type="object",
+ *                     @OA\Property(
+ *                         property="image_url",
+ *                         type="string",
+ *                         example="http://example.com/new-image.jpg",
+ *                         description="URL of the updated image"
+ *                     )
+ *                 )
+ *             ),
+ *             @OA\Property(
+ *                 property="videos",
+ *                 type="array",
+ *                 description="Updated videos associated with the post",
+ *                 @OA\Items(
+ *                     type="object",
+ *                     @OA\Property(
+ *                         property="video_url",
+ *                         type="string",
+ *                         example="http://example.com/new-video.mp4",
+ *                         description="URL of the updated video"
+ *                     )
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Post not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Post not found")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Bad request",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Invalid input data")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Internal server error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Internal server error")
+ *         )
+ *     )
+ * )
+ */
     public function update(Request $request, string $id)
     {
         //
-        dd($request);
+        
         $validatedData = $request->validate([
             'caption' => 'required|string',
             'photo_id' => 'required|string',
@@ -79,6 +518,41 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+    /**
+ * @OA\Delete(
+ *     path="/api/post/{id}",
+ *     summary="Delete a post by ID",
+ *     description="Endpoint to delete a post by its ID.",
+ *     operationId="deletePostById",
+ *     tags={"Post"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the post to delete",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=204,
+ *         description="Post deleted successfully"
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Post not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Post not found")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Internal server error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Internal server error")
+ *         )
+ *     )
+ * )
+ */
     public function destroy(string $id)
     {
         //
