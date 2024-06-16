@@ -23,17 +23,16 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middle
 
 
 
-// Post
+//emoji
+Route::prefix('/emoji')->group(function () {
+    Route::get('/list', [EmojiController::class, 'index'])->name('emoji.list');
+    Route::post('/create', [EmojiController::class, 'store'])->name('emoji.create');
+    Route::post('/update/{id}', [EmojiController::class, 'update'])->name('emoji.update');
+    Route::delete('/delete/{id}', [EmojiController::class, 'destroy'])->name('emoji.delete');
+});
+
 
 Route::middleware('auth:sanctum')->group(function () {
-
-
-    //emoji
-    Route::prefix('/emoji')->group(function () {
-        Route::get('/list', [EmojiController::class, 'index'])->name('emoji.list');
-        Route::post('/create', [EmojiController::class, 'store'])->name('emoji.create');
-        Route::delete('/delete/{id}', [EmojiController::class, 'destroy'])->name('emoji.delete');
-    });
 
     //profile
     Route::prefix('/profile')->group(function () {

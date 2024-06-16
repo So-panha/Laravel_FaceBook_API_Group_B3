@@ -52,6 +52,7 @@ class Post extends Model
         $data = $request->only('caption','user_id');
         $data = self::create($data);
 
+
         // fecth into table image
         if ($request->image != null) {
             $arr = [$request->image];
@@ -64,7 +65,7 @@ class Post extends Model
         // fecth into table video
         if($request->video != null){
             $arr = [$request->video];
-            if (count($arr) > 1) {
+            if ($arr > 1) {
                 foreach ($request->video as $video) {
                     $data->video()->create(['video_url' => $video]);
                 }
