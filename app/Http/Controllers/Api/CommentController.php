@@ -82,11 +82,25 @@ class CommentController extends Controller
     {
         //
         $comment = Comment::findOrFail($id);
-        $comment->delete();
+        try {
+            if ($comment->user_id == Auth()->user()->id) {
 
-        return response()->json([
-            "success" => true,
-            "message" => "Comment deleted successfully"
-        ], 200);
+                $comment->delete();
+                return response()->json([
+                    "success" => true,
+                    "message" => "Remove comment successfully",
+                ], 200);
+            } else {
+                return response()->json([
+                    "success" => false,
+                    "message" => "You are not allowed to comment with this"
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "success" => false,
+                "message" => $e->getMessage()
+            ], 400);
+        }
     }
 }

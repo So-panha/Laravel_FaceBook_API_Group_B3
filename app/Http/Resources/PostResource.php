@@ -22,7 +22,7 @@ class PostResource extends JsonResource
             'video' => VideoResource::collection($this->video),
             'created_at' => $this->created_at->format('M D Y, h:m:s a'),
             'likes' => LikeResource::collection($this->like),
-            // 'comments' => CommentResource::collection($this->comment),
+            'comments' => CommentResource::collection($this->comment),
         ];
     }
 }
