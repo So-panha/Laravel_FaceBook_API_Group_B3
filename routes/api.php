@@ -60,6 +60,8 @@ Route::middleware('auth:sanctum')->group(function () {
         //add friends
         Route::post('/send', [RequestFriendController::class, 'sendRequest']);
         Route::get('/list', [RequestFriendController::class, 'listFriendsRequest']);
+        Route::post('/accept_friend/{id}', [RequestFriendController::class, 'acceptFriend']);
+        Route::post('/reject_friend/{id}', [RequestFriendController::class, 'rejectFriend']);
         Route::delete('/delete/{id}', [RequestFriendController::class, 'destroy']);
     });
 });
