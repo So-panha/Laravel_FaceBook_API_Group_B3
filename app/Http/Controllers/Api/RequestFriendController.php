@@ -12,11 +12,39 @@ use Auth;
 use Exception;
 use Illuminate\Http\Request;
 
+
+
 class RequestFriendController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    /**
+ * @OA\Post(
+ *     path="/api/friend-requests/send",
+ *     operationId="sendFriendRequest",
+ *     tags={"Friend Requests"},
+ *     summary="Send a friend request",
+ *     description="Sends a new friend request",
+ *     security={{"bearer_token":{}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             @OA\Property(property="receiver_id", type="integer", example=2)
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Friend request sent successfully",
+ *         @OA\JsonContent(
+ *             type="object",
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     )
+ * )
+ */
     public function sendRequest(RequestFriendRequest $request)
     {
         //
@@ -30,6 +58,7 @@ class RequestFriendController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function listFriendsRequest()
     {
         //
