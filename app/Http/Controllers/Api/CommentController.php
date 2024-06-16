@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class CommentController extends Controller
     public function index()
     {
         //
-        $comments = Comment::all();
+        $comments = Comment::list();
         return response()->json([
             "success" => true,
             "message" => "Comments retrieved successfully",
@@ -26,17 +27,14 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        //
-        $validatedData = $request->validate([
-            'text' => 'required|string',
-            'user_id' => 'required|integer',
-            'show_post_id' => 'required|integer',
-        ]);
+        $comment = new Comment;
+        $comment->text = $request->text;
+        $comment->user_id = Auth()->user()->id;
+        $comment->post_id = $request->post_id;
 
-        $comment = Comment::create($validatedData);
-
+        Comment::store($comment);
         return response()->json([
             "success" => true,
             "message" => "Comment created successfully",

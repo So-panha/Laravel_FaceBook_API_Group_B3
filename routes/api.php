@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\EmojiController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ProfileController;
@@ -45,6 +46,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/list', [LikeController::class, 'index']);
         Route::post('/create', [LikeController::class, 'store']);
         Route::delete('/delete/{id}', [LikeController::class, 'destroy']);
+    });
+
+    Route::prefix('/comment')->group(function (){
+        //likes
+        Route::get('/list', [CommentController::class, 'index']);
+        Route::post('/create', [CommentController::class, 'store']);
+        Route::delete('/delete/{id}', [CommentController::class, 'destroy']);
     });
 });
 

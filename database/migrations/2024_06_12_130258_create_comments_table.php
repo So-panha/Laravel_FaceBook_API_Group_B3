@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("text");
             $table->integer("user_id");
-            $table->integer("show_post_id");
+            $table->integer("post_id");
             $table->softDeletes();
             $table->timestamps();
         });
