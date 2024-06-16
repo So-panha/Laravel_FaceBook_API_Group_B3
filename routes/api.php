@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\EmojiController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ProfileController;
@@ -23,13 +24,6 @@ Route::get('/emoji/list', [EmojiController::class, 'index'])->name('emoji.list')
 Route::post('/emoji/create', [EmojiController::class, 'store']);
 Route::delete('/emoji/delete/{id}', [EmojiController::class, 'destroy']);
 
-//likes
-
-Route::get('/like/list', [LikeController::class, 'index']);
-Route::post('/like/create', [LikeController::class, 'store']);
-Route::delete('/like/delete/{id}', [LikeController::class, 'destroy']);
-
-
 //profile
 Route::post('/profile/create', [ProfileController::class, 'store']);
 Route::get('/profile/show/{id}', [ProfileController::class, 'show']);
@@ -45,6 +39,20 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/show/{id}', [PostController::class, 'show'])->name('post.show');
         Route::put('/update/{id}', [PostController::class, 'update'])->name('post.update');
         Route::delete('/delete/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+    });
+
+    Route::prefix('/like')->group(function (){
+        //likes
+        Route::get('/list', [LikeController::class, 'index']);
+        Route::post('/create', [LikeController::class, 'store']);
+        Route::delete('/delete/{id}', [LikeController::class, 'destroy']);
+    });
+
+    Route::prefix('/comment')->group(function (){
+        //likes
+        Route::get('/list', [CommentController::class, 'index']);
+        Route::post('/create', [CommentController::class, 'store']);
+        Route::delete('/delete/{id}', [CommentController::class, 'destroy']);
     });
 });
 

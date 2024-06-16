@@ -495,11 +495,26 @@ class PostController extends Controller
     {
         //
         $post = Post::findOrFail($id);
-        $post->delete();
+        try{
+            if($post->user_id == Auth()->user()->id){
 
-        return response()->json([
-            "success" => true,
-            "message" => "Post deleted successfully"
-        ], 200);
+                $post->delete();
+                return response()->json([
+                    "success" => true,
+                    "message" => "Post delete successfully",
+                ], 200);
+            }else{
+                return response()->json([
+                    "success" => false,
+                    "message" => "You are not allowed to delete this post"
+                ], 400);
+            }
+        }catch(Exception $e){
+            return response()->json([
+                "success" => false,
+                "message" => $e->getMessage()
+            ], 400);
+        }
+
     }
 }
